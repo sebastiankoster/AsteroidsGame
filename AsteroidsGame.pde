@@ -29,8 +29,6 @@ public void draw() {
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i].show();
   }
-  System.out.println(frameCount);
-  
   
   //if(wIsPressed)
   //  leBron.accelerate(0.2);
