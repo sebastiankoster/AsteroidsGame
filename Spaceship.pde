@@ -1,6 +1,6 @@
 class Spaceship extends Floater  
 {   
-   int timeCheck;
+   private int timeCheck;
    public double getXspeed(){return myXspeed;}
    public double getYspeed(){return myYspeed;}  
    
