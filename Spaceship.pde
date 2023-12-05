@@ -1,14 +1,11 @@
 class Spaceship extends Floater  
 {   
-   private int timeCheck;
    public double getXspeed(){return myXspeed;}
    public double getYspeed(){return myYspeed;}  
-   
+  
     public Spaceship(){
     corners = 12;
-    a=100;
-    b=120;
-    c=200;
+    myColor = color(100,120,200);
     myCenterX = 400;
     myCenterY= 400;
     myXspeed = 0;
@@ -47,9 +44,9 @@ class Spaceship extends Floater
     
    public void controls(){
      if(wIsPressed)
-    accelerate(0.06);
+    accelerate(0.2);
   else if (sIsPressed)
-    accelerate(-0.06);
+    accelerate(-0.2);
   //noSpeedKeysPressed
   //else if(!wIsPressed && !aIsPressed){
   //  if (getXspeed()>0)
@@ -59,21 +56,9 @@ class Spaceship extends Floater
   //  }
   //rotation
   else if(aIsPressed)
-    turn((double)-2);
+    turn((double)-4);
   else if(dIsPressed)
-    turn((double)2);
-  else if (hIsPressed)
-    hyperspace();
-   }
+    turn((double)4);
    
-   public void hyperspace(){
-   if(frameCount - timeCheck>100){
-     timeCheck = frameCount;
-     myXspeed = 0;
-     myYspeed = 0;
-     turn(Math.random()*361);
-     myCenterX = Math.random()*1921;
-     myCenterY = Math.random()*1081;
-   }
    }
 }
