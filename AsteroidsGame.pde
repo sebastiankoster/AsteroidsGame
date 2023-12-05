@@ -1,23 +1,25 @@
 //your variable declarations here
-public Star[] galaxy;
-public Spaceship leBron;
+ Star[] galaxy;
+ Spaceship leBron;
+ ArrayList<Asteroid> swarm;
 public boolean wIsPressed;
 public boolean dIsPressed;
 public boolean aIsPressed;
 public boolean sIsPressed;
-public boolean hIsPressed;
-public int totalFrames = 0;
 
 public void setup() {
-  size(1920,1080);
+  size(1820,980);
   background(0,0,0);
+  swarm = new ArrayList<Asteroid>();
   
   //populate galaxy
   galaxy = new Star[2000];
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i] = new Star();
   }
-  
+  for(int i = 0; i<20; i++){
+  swarm.add(new Asteroid());
+  }
   //intitalize spaceship "leBron"
   leBron = new Spaceship();
 }
@@ -30,25 +32,6 @@ public void draw() {
     galaxy[i].show();
   }
   
-  //if(wIsPressed)
-  //  leBron.accelerate(0.2);
-  //else if (sIsPressed)
-  //  leBron.accelerate(-0.2);
-  ////noSpeedKeysPressed
-  //else if(!wIsPressed && !aIsPressed){
-  //  if (leBron.getXspeed()>0)
-  //    leBron.accelerate(-0.1);
-  //   if (leBron.getXspeed()<0)
-  //    leBron.accelerate(0.1);
-  //  }
-  ////rotation
-  //else if(aIsPressed)
-  //  turn(-2);
-  //else if(dIsPressed)
-  //  turn((float)2);
-    
-  
-  
   //move and turn spaceship
   leBron.controls();
   leBron.move();
@@ -57,6 +40,21 @@ public void draw() {
   leBron.show();
   strokeWeight(2);
   
+  stroke(256,256,256);
+  strokeWeight(4);
+  noFill();
+  //circle((float)leBron.getX(),(float)leBron.getY(),60);
+  strokeWeight(2);
+
+  for(int i = 0 ; i<swarm.size(); i++){
+  swarm.get(i).turn(swarm.get(i).rotSpeed);
+  swarm.get(i).move();
+  swarm.get(i).show();
+  //noFill();
+  //circle((float)swarm.get(i).getX(),(float)swarm.get(i).getY(),45);
+  if( abs((float)(swarm.get(i).getX()-leBron.getX()))<57 && abs((float)(swarm.get(i).getY()-leBron.getY()))<57){
+  swarm.remove(i);}
+  }
 }
 
 
@@ -72,8 +70,6 @@ void keyPressed()
     sIsPressed = true;
   else if (key == 'd')
     dIsPressed = true;
-  else if (key == 'h')
-    hIsPressed = true;
 }
 void keyReleased()
 {
@@ -85,6 +81,4 @@ void keyReleased()
     sIsPressed = false;
   else if (key == 'd')
     dIsPressed = false;
-  else if (key == 'h')
-    hIsPressed = false;
 }
