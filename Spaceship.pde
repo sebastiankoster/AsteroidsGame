@@ -56,9 +56,9 @@ class Spaceship extends Floater
   //  }
   //rotation
   else if(aIsPressed)
-    turn((double)-4);
+    turn(-4);
   else if(dIsPressed)
-    turn((double)4);
+    turn(4);
    
    }
 }
