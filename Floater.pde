@@ -3,9 +3,7 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
   protected int corners;  //the number of corners, a triangular floater has 3   
   protected int[] xCorners;   
   protected int[] yCorners;   
-  protected int a;
-  protected int b;
-  protected int c;
+  protected color myColor;
   protected double myCenterX, myCenterY; //holds center coordinates   
   protected double myXspeed, myYspeed; //holds the speed of travel in the x and y directions   
   protected double myPointDirection; //holds current direction the ship is pointing in degrees    
@@ -51,8 +49,8 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
   }   
   public void show ()  //Draws the floater at the current position  
   {             
-    fill(a,b,c);   
-    stroke(a,b,c);    
+    fill(myColor);   
+    stroke(myColor);    
     
     //translate the (x,y) center of the ship to the correct position
     translate((float)myCenterX, (float)myCenterY);
@@ -75,4 +73,5 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }   
+  public double getX(){return myCenterX;} public double getY(){return myCenterY;}
 } 
