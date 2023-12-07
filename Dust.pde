@@ -26,6 +26,6 @@ public void mshow(){
   myY += totVelo*sin(d*PI/180);
 
   stroke(myColor);
-  circle(myX,myY,2);
+  ellipse(myX,myY,2,2);
  }
 }
