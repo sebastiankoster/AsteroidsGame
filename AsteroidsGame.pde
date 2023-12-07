@@ -1,11 +1,19 @@
 //your variable declarations here
  Star[] galaxy;
+ ArrayList<Dust> rocketSmoke;
  Spaceship leBron;
+ int lastSF;
  ArrayList<Asteroid> swarm;
+ ArrayList<Bullet> bfires;
+ ArrayList<Rocket> rfires;
 public boolean wIsPressed;
 public boolean dIsPressed;
 public boolean aIsPressed;
 public boolean sIsPressed;
+public boolean fIsPressed;
+public boolean spaceIsPressed;
+public boolean rIsPressed;
+
 
 public void setup() {
   size(1820,980);
@@ -17,11 +25,20 @@ public void setup() {
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i] = new Star();
   }
-  for(int i = 0; i<20; i++){
-  swarm.add(new Asteroid());
+  
+  for (int i = 0; i<20; i++){
+    swarm.add(new Asteroid());
   }
-  //intitalize spaceship "leBron"
+  
+  rocketSmoke = new ArrayList<Dust>();
+
+  
+  //intitalize a
   leBron = new Spaceship();
+  bfires= new ArrayList<Bullet>();
+  rfires = new ArrayList<Rocket>();
+  lastSF=0;
+
 }
 
 
@@ -31,15 +48,13 @@ public void draw() {
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i].show();
   }
-  
   //move and turn spaceship
   leBron.controls();
   leBron.move();
-  strokeWeight(6);
+  strokeWeight(2);
   stroke(10,10,200);
   leBron.show();
   strokeWeight(2);
-  
   stroke(256,256,256);
   strokeWeight(4);
   noFill();
@@ -50,14 +65,55 @@ public void draw() {
   swarm.get(i).turn(swarm.get(i).rotSpeed);
   swarm.get(i).move();
   swarm.get(i).show();
+  if(swarm.get(i).hp<=0){
+     //for(int j = 0; i<500; i++){
+     // rocketSmoke.add(new Dust((float)swarm.get(i).getX(),(float)swarm.get(i).getY(),0,3,color(240,135,97)));
+     // }
+    swarm.remove(i);
+    break;
+  }
   //noFill();
   //circle((float)swarm.get(i).getX(),(float)swarm.get(i).getY(),45);
   if( abs((float)(swarm.get(i).getX()-leBron.getX()))<57 && abs((float)(swarm.get(i).getY()-leBron.getY()))<57){
   swarm.remove(i);}
   }
+  
+  if(spaceIsPressed){
+    if(frameCount-lastSF>6){
+      bfires.add(new Bullet(leBron));
+      lastSF = frameCount;
+    }
+  }
+  
+  
+  if(rIsPressed){
+    if(frameCount-lastSF>frameRate*1){
+      rfires.add(new Rocket(leBron));
+      lastSF = frameCount;
+    }
+  }
+  
+  for(int i = 0 ; i<bfires.size(); i++){
+    bfires.get(i).show();
+    bfires.get(i).myIndex = i;
+    bfires.get(i).move();
+  }
+  
+  
+  for(int i = 0 ; i<rfires.size(); i++){
+
+    rfires.get(i).show();
+    rfires.get(i).myIndex = i;
+    rfires.get(i).move();
+  }
+
+  for(int i = 0; i<rocketSmoke.size(); i++){
+    if(frameCount - rocketSmoke.get(i).frameMade > (0.5+Math.random())*frameRate)
+      rocketSmoke.remove(i);
+    else
+    rocketSmoke.get(i).mshow();
+  }
 }
-
-
 
 //w,a,s,d sensing
 void keyPressed()
@@ -70,6 +126,12 @@ void keyPressed()
     sIsPressed = true;
   else if (key == 'd')
     dIsPressed = true;
+  else if (key == 'f')
+    fIsPressed = true;
+  else if (key == ' ')
+    spaceIsPressed = true;
+  else if (key == 'r')
+    rIsPressed = true;
 }
 void keyReleased()
 {
@@ -81,4 +143,10 @@ void keyReleased()
     sIsPressed = false;
   else if (key == 'd')
     dIsPressed = false;
+  else if (key == 'f')
+    fIsPressed = false;
+  else if (key == ' ')
+    spaceIsPressed = false;
+  else if (key == 'r')
+    rIsPressed = false;
 }

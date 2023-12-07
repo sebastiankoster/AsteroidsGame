@@ -1,64 +1,44 @@
-class Spaceship extends Floater  
-{   
-   public double getXspeed(){return myXspeed;}
-   public double getYspeed(){return myYspeed;}  
-  
-    public Spaceship(){
-    corners = 12;
-    myColor = color(100,120,200);
-    myCenterX = 400;
-    myCenterY= 400;
-    myXspeed = 0;
-    myYspeed = 0;
-    myPointDirection = 0;
+class Spaceship extends Floater  {   
+  public double getXspeed(){return myXspeed;}
+  public double getYspeed(){return myYspeed;}  
+  int framesLH = 0;
+  public Spaceship(){
+  corners = 77;
+  myColor = color(100,120,200);
+  myStroke = color(250,250,250);
+  myCenterX = 400;
+  myCenterY= 400;
+  myXspeed = 0;
+  myYspeed = 0;
+  myPointDirection = 0;
     
-    //assign values for verticies
-    xCorners = new int[corners];
-    xCorners[0]=20;
-    xCorners[1]=10;
-    xCorners[2]=-2;
-    xCorners[3]=-4;
-    xCorners[4]=-10;
-    xCorners[5]=-20;
-    xCorners[6]=-16;
-    xCorners[7]=-20;
-    xCorners[8]=-10;
-    xCorners[9]=-4;
-    xCorners[10]=-2;
-    xCorners[11]=10;
+  //assign values for verticies
+  xCorners = new float[]{60, 30, 42, 24, 27, 12,  6, 21, -10, -27, -21, -36, -21, -27, -10,  21,   6, 12,  27,  24,  42, 30, 60, 36, 30, 22, 24, 22, 12, -9, -6, 6, -6, -10, -6, -9, -18, -21, -18, -27, -18, -21, -18,  -9,  -6, -10,  -6,   6,  -6,  -9, 12, 22,  24, 22, 30, 36, -9, -9, -9, -18, -9, -21, -27, -21, -9, -18, -9,  -9, -9, 36, 18, -9, 18, -9, 18, 36, 60};
+  yCorners = new float[]{ 0,  6, 15, 15, 24,  9, 21, 27,  28,  36,  21,   0, -21, -36, -28, -27, -21, -9, -24, -15, -15, -6,  0,  0,  6,  8, 15,  8,  9, 15, 18, 21, 18, 28, 18, 15,  12,  21,  12,   0, -12, -21, -12, -15, -18, -28, -18, -21, -18, -15, -9, -8, -15, -8, -6,  0,  9, 15,  9,  12,  9,   0,   0,   0, -9, -12, -9, -15, -9,  0,  0,  0,  9,  0, -9,  0,  0};
+  }
     
-    yCorners = new int[corners];
-    yCorners[0]=0;
-    yCorners[1]=4;
-    yCorners[2]=20;
-    yCorners[3]=20;
-    yCorners[4]=6;
-    yCorners[5]=10;
-    yCorners[6]=0;
-    yCorners[7]=-10;
-    yCorners[8]=-6;
-    yCorners[9]=-20;
-    yCorners[10]=-20;
-    yCorners[11]=-4;   
-    }
-    
-   public void controls(){
-     if(wIsPressed)
+public void controls(){
+  if(wIsPressed)
     accelerate(0.2);
-  else if (sIsPressed)
+  if (sIsPressed)
     accelerate(-0.2);
-  //noSpeedKeysPressed
-  //else if(!wIsPressed && !aIsPressed){
-  //  if (getXspeed()>0)
-  //    accelerate(-0.1);
-  //   if (getXspeed()<0)
-  //    accelerate(0.1);
-  //  }
-  //rotation
-  else if(aIsPressed)
+
+  if(aIsPressed)
     turn(-4);
-  else if(dIsPressed)
+  if(dIsPressed)
     turn(4);
-   
-   }
+  if(fIsPressed)
+    hyperspace();
+ }
+
+public void hyperspace(){
+  if(frameCount-framesLH>600){
+    myCenterX = Math.random()*1821;
+    myCenterY = Math.random()*981;
+    myXspeed = 0; myYspeed = 0 ;
+    myPointDirection = (int)(Math.random()*361);
+    framesLH = frameCount;
+  }
+ }
+ 
 }
