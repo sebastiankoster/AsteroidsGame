@@ -13,6 +13,8 @@ public boolean sIsPressed;
 public boolean fIsPressed;
 public boolean spaceIsPressed;
 public boolean rIsPressed;
+float timer;
+float highScore;
 
 
 public void setup() {
@@ -38,6 +40,8 @@ public void setup() {
   bfires= new ArrayList<Bullet>();
   rfires = new ArrayList<Rocket>();
   lastSF=0;
+  highScore=1000;
+  timer=0;
 
 }
 
@@ -48,6 +52,15 @@ public void draw() {
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i].show();
   }
+
+  fill(100,100,100);
+  rect(0,0,120,50,25);
+  fill(256,256,256);
+  textSize(40);
+  textAlign(CENTER);
+  text(timer,60,37);
+  
+  
   //move and turn spaceship
   leBron.controls();
   leBron.move();
@@ -75,7 +88,9 @@ public void draw() {
   //noFill();
   //circle((float)swarm.get(i).getX(),(float)swarm.get(i).getY(),45);
   if( abs((float)(swarm.get(i).getX()-leBron.getX()))<57 && abs((float)(swarm.get(i).getY()-leBron.getY()))<57){
-  swarm.remove(i);}
+  swarm.remove(i);
+  timer+=2;
+}
   }
   
   if(spaceIsPressed){
@@ -112,6 +127,22 @@ public void draw() {
       rocketSmoke.remove(i);
     else
     rocketSmoke.get(i).mshow();
+  }
+  
+  
+  
+  if(swarm.size()>0)
+    timer += 1/frameRate;
+  else{
+  if (timer<highScore)
+    highScore = (timer - timer%0.1);
+  stroke(0,100,0);
+  fill(100,100,100);
+  rect(width-300,0,300,50,25);
+  fill(256,256,256);
+  textSize(40);
+  textAlign(CENTER);
+  text("High Score is " + highScore,width-150,37);
   }
 }
 
