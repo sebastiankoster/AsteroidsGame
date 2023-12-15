@@ -13,6 +13,7 @@ public boolean sIsPressed;
 public boolean fIsPressed;
 public boolean spaceIsPressed;
 public boolean rIsPressed;
+public boolean pIsPressed;
 float timer;
 float highScore;
 
@@ -52,7 +53,14 @@ public void draw() {
   for(int i =  0; i<galaxy.length; i++){
     galaxy[i].show();
   }
-
+  if(swarm.size()==0){
+    if(pIsPressed){
+      for (int i = 0; i<20; i++){
+        swarm.add(new Asteroid());
+        timer = 0 ; 
+      }
+    }   
+  }
   fill(100,100,100);
   rect(0,0,120,50,25);
   fill(256,256,256);
@@ -163,6 +171,8 @@ void keyPressed()
     spaceIsPressed = true;
   else if (key == 'r')
     rIsPressed = true;
+  else if (key == 'p')
+    pIsPressed = true;
 }
 void keyReleased()
 {
@@ -180,4 +190,6 @@ void keyReleased()
     spaceIsPressed = false;
   else if (key == 'r')
     rIsPressed = false;
+  else if (key == 'p')
+    pIsPressed = false;
 }
