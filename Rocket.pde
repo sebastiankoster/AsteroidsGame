@@ -86,7 +86,7 @@ public void show (){
     
     
     //draw smoke trail
-  for(int i = 0; i<100; i++){
+  for(int i = 0; i<20; i++){
     rocketSmoke.add(new Dust((float)myCenterX,(float)myCenterY,(float)myPointDirection));
   }
     
